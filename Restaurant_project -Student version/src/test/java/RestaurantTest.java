@@ -1,6 +1,5 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 
 import java.time.LocalTime;
@@ -25,22 +24,23 @@ class RestaurantTest {
         Item item2 = new Item("Vegetable lasagne",269);
         testItemList.add(item1);
         testItemList.add(item2);
+
     }
     //Test cases for showOrder Value method in Restaurant
     @Test
-    public void showordervalue_should_return_correct_order_value() throws itemNotFoundException {
+    public void showordervalue_should_return_correct_order_value() throws itemNotFoundException,itemValueIsNegativeException {
         assertEquals(388,restaurant.showOrderValue(testItemList));
     }
     @Test
-   public void showordervalue_should_retrun_incorrect_order_value_when_price_isworng () throws itemNotFoundException {
+   public void showordervalue_should_retrun_incorrect_order_value_when_price_iswrong () throws itemNotFoundException,itemValueIsNegativeException {
 
         assertNotEquals(300,restaurant.showOrderValue(testItemList));
     }
     @Test
-    public void showordervalue_should_throw_exception_if_item_not_found () throws itemNotFoundException {
-        Item item3 = new Item("Vegetable lasagne");
+    public void showordervalue_should_throw_an_exception_when_item_value_is_negative () throws itemValueIsNegativeException,itemNotFoundException {
+        Item item3 = new Item("Vegetable Cutlet",-2);
         testItemList.add(item3);
-        assertThrows(itemNotFoundException.class,restaurant.showOrderValue(testItemList));
+        assertThrows(itemValueIsNegativeException.class,()->restaurant.showOrderValue(testItemList));
     }
 
     //>>>>>>>>>>>>>>>>>>>>>>>>>OPEN/CLOSED<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
