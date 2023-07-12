@@ -34,12 +34,14 @@ public class Restaurant {
     }
 
     private Item findItemByName(String itemName) throws itemNotFoundException {
+        boolean itemfound = false;
         for (Item item : menu) {
             if (item.getName().equals(itemName)) {
+                itemfound = true;
                 return item;
-            } else {
-                throw new itemNotFoundException(item.getName());
             }
+        }
+          if(itemfound == false){throw new itemNotFoundException(itemName);
         }
         return null;
     }
