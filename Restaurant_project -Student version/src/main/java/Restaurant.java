@@ -43,6 +43,10 @@ public class Restaurant {
         Item newItem = new Item(name,price);
         menu.add(newItem);
     }
+    // Method to calculate order value for items list argument from the Restaurant.
+    public int showOrderValue(Item listofItems[]){
+        return null ;
+    }
     
     public void removeFromMenu(String itemName) throws itemNotFoundException {
 
