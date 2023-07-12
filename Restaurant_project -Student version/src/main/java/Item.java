@@ -1,3 +1,5 @@
+import static java.util.Objects.isNull;
+
 public class Item {
     private String name;
     private int price;
@@ -7,8 +9,15 @@ public class Item {
         this.price = price;
     }
 
-    public String getName() {
+    public String getName() throws itemNotFoundException {
         return name;
+    }
+    public int getPrice() throws itemNotFoundException {
+        if(isNull(price)) {
+             throw new itemNotFoundException("price doesn't exist");}
+        else {
+            return price;
+        }
     }
     @Override
     public String toString(){

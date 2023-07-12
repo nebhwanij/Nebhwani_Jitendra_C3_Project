@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class RestaurantTest {
     Restaurant restaurant;
-
+    List<Item> testItemList= new ArrayList<Item>();
     @BeforeEach
     public void initialize_restaurant_var_fortesting(){
         LocalTime openingTime = LocalTime.parse("10:30:00");
@@ -20,19 +20,27 @@ class RestaurantTest {
         restaurant = new Restaurant("Amelie's cafe", "Chennai", openingTime, closingTime);
         restaurant.addToMenu("Sweet corn soup", 119);
         restaurant.addToMenu("Vegetable lasagne", 269);
+
+        Item item1 = new Item("Sweet corn soup",119);
+        Item item2 = new Item("Vegetable lasagne",269);
+        testItemList.add(item1);
+        testItemList.add(item2);
     }
     //Test cases for showOrder Value method in Restaurant
     @Test
     public void showordervalue_should_return_correct_order_value() throws itemNotFoundException {
-        assertEquals(388,restaurant.showOrderValue(restaurant.getMenu()));
+        assertEquals(388,restaurant.showOrderValue(testItemList));
     }
     @Test
-    public void showordervalue_should_retrun_incorrect_order_value_when_price_isworng () throws itemNotFoundException {
-        assertFalse(300,restaurant.showOrderValue(restaurant.getMenu()));
+   public void showordervalue_should_retrun_incorrect_order_value_when_price_isworng () throws itemNotFoundException {
+
+        assertNotEquals(300,restaurant.showOrderValue(testItemList));
     }
     @Test
     public void showordervalue_should_throw_exception_if_item_not_found () throws itemNotFoundException {
-        assertThrow(itemNotFoundException,restaurant.showOrderValue(restaurant.getMenu()));
+        Item item3 = new Item("Vegetable lasagne");
+        testItemList.add(item3);
+        assertThrows(itemNotFoundException.class,restaurant.showOrderValue(testItemList));
     }
 
     //>>>>>>>>>>>>>>>>>>>>>>>>>OPEN/CLOSED<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<

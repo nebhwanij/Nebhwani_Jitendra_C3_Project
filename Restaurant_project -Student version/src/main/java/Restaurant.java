@@ -1,7 +1,9 @@
+import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Iterator;
 
 public class Restaurant {
     private String name;
@@ -31,21 +33,32 @@ public class Restaurant {
         return this.menu;
     }
 
-    private Item findItemByName(String itemName){
-        for(Item item: menu) {
-            if(item.getName().equals(itemName))
+    private Item findItemByName(String itemName) throws itemNotFoundException {
+        for (Item item : menu) {
+
+            if (item.getName().equals(itemName)) {
                 return item;
+            } else {
+                throw new itemNotFoundException(item.getName());
+            }
         }
         return null;
     }
-
     public void addToMenu(String name, int price) {
         Item newItem = new Item(name,price);
         menu.add(newItem);
     }
     // Method to calculate order value for items list argument from the Restaurant.
-    public int showOrderValue(Item listofItems[]){
-        return null ;
+    public int showOrderValue(List<Item> listofItems) throws itemNotFoundException{
+        int orderValue=0;
+        int i = 0 ;
+        boolean itemFoundOrNot;
+        while (i<listofItems.size()){
+                  orderValue=orderValue + listofItems.get(i).getPrice();
+                  i++;
+
+                  }
+        return orderValue ;
     }
     
     public void removeFromMenu(String itemName) throws itemNotFoundException {
